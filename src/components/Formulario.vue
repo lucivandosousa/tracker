@@ -17,8 +17,13 @@
 
   const descricao = ref("")
 
+  const emit = defineEmits(["aoSalvarTarefa"])
+
   function finalizarTarefa(tempoDecorrigo: number): void {
-    console.log(descricao.value, tempoDecorrigo)
+    emit('aoSalvarTarefa', {
+      duracaoEmSegundos: tempoDecorrigo,
+      descricao: descricao.value
+    })
     descricao.value = ""
   }
 </script>
