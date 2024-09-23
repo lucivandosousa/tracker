@@ -33,18 +33,16 @@
 </template>
 
 <script setup lang="ts">
-  import type IProjetos from '@/interfaces/IProjetos';
-  import { ref } from 'vue';
+  import { key } from '@/store';
+  import { ref, computed } from 'vue';
+  import { useStore } from 'vuex';
 
   const nomeDoProjeto = ref("")
-  const projetos = ref<IProjetos[]>([])
+  const store = useStore(key)
+  const projetos = computed(() => store.state.projetos)
 
   function salvar() {
-    const projeto: IProjetos = {
-      id: new Date().toISOString(),
-      nome: nomeDoProjeto.value
-    }
-    projetos.value.push(projeto)
+    store.commit("ADICIONA_PROJETO", nomeDoProjeto.value)
     nomeDoProjeto.value = ""
   }
 </script>
