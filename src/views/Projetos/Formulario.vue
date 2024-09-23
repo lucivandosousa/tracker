@@ -19,17 +19,35 @@
 </template>
 
 <script setup lang="ts">
+  import type IProjetos from '@/interfaces/IProjetos';
   import { key } from '@/store';
-  import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
+  import { onMounted, ref } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
   import { useStore } from 'vuex';
 
   const nomeDoProjeto = ref("")
+  const idDoProjeto = ref<string | string[]>("")
   const store = useStore(key)
   const router = useRouter()
+  const route = useRoute()
+  idDoProjeto.value = route.params.id
+
+  onMounted(() => {
+    if (idDoProjeto.value) {
+      const projeto = store.state.projetos.find((proj: IProjetos) => proj.id == idDoProjeto.value)
+      nomeDoProjeto.value = projeto?.nome || ""
+    }
+  })
 
   function salvar() {
-    store.commit("ADICIONA_PROJETO", nomeDoProjeto.value)
+    if (idDoProjeto.value) {
+      store.commit("ALTERA_PROJETO", {
+        id: idDoProjeto.value,
+        nome: nomeDoProjeto.value
+      })
+    } else {
+      store.commit("ADICIONA_PROJETO", nomeDoProjeto.value)
+    }
     nomeDoProjeto.value = ""
     router.push("/projetos")
   }
