@@ -36,6 +36,7 @@
 <script setup lang="ts">
   import { key } from '@/store';
   import { computed } from 'vue';
+  //@ts-ignore
   import { useStore } from 'vuex';
 
   const store = useStore(key)

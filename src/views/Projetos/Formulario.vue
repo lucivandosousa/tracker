@@ -23,6 +23,7 @@
   import { key } from '@/store';
   import { onMounted, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
+  //@ts-ignore
   import { useStore } from 'vuex';
 
   const nomeDoProjeto = ref("")

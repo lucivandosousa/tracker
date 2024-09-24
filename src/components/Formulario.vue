@@ -28,6 +28,7 @@
 <script setup lang="ts">
   import { computed, ref } from 'vue';
   import Temporizador from './Temporizador.vue';
+  //@ts-ignore
   import { useStore } from 'vuex';
   import { key } from '@/store';
 
